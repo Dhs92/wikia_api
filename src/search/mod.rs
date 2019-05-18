@@ -1,2 +1,3 @@
 pub mod search;
-pub mod data;
+pub mod results;
+pub mod page;

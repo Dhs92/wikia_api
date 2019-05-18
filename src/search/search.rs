@@ -2,7 +2,7 @@ extern crate reqwest;
 extern crate serde_json;
 extern crate url;
 
-use super::data::results::Results;
+use super::results::Results;
 use std::option::Option;
 use url::Url;
 
