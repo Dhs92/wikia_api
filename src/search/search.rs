@@ -30,7 +30,7 @@ pub struct Search {
 /// eprintln!("{:?}", search);
 ///
 /// ```
-impl<'a> Search {
+impl Search {
     /// Constructs an empty Search object
     pub fn new() -> Self {
         Search {
@@ -44,14 +44,14 @@ impl<'a> Search {
     /// Set the query for the search
     ///
     /// Note: Can not be empty when submitting search
-    pub fn query(&'a mut self, query: &'a str) -> &'a mut Self {
+    pub fn query(&mut self, query: &str) -> &mut Self {
         self.query = Some(query.to_string());
 
         self
     }
 
     /// Set the sub wiki for the search
-    pub fn sub_wikia(&'a mut self, sub_wikia: &'a str) -> &'a mut Self {
+    pub fn sub_wikia(&mut self, sub_wikia: &str) -> &mut Self {
         self.sub_wikia = Some(sub_wikia.to_string());
 
         self
@@ -60,7 +60,7 @@ impl<'a> Search {
     /// Set the namespace for the search
     ///
     /// [Namespaces](https://community.fandom.com/wiki/Help:Namespace)
-    pub fn namespace(&'a mut self, namespace: &'a [u8]) -> &'a mut Self {
+    pub fn namespace(&mut self, namespace: &[u8]) -> &mut Self {
         let mut tmp = String::new();
 
         for i in namespace {
@@ -77,7 +77,7 @@ impl<'a> Search {
     /// Set a limit for the number of batches returned
     ///
     /// Default: 5
-    pub fn limits(&'a mut self, limits: u8) -> &'a mut Self {
+    pub fn limits(&mut self, limits: u8) -> &mut Self {
         let tmp = format!("{}", limits);
 
         self.limits = Some(tmp);
@@ -85,7 +85,7 @@ impl<'a> Search {
         self
     }
 
-    fn build_url(&'a self) -> std::result::Result<reqwest::Url, Box<std::error::Error>> {
+    fn build_url(&self) -> std::result::Result<reqwest::Url, Box<std::error::Error>> {
         let mut base_url = String::from("http://");
 
         match self.sub_wikia.as_ref() {
@@ -116,7 +116,7 @@ impl<'a> Search {
     }
 
     /// Build the URL from the provided options and submit the search
-    pub fn search(&'a self) -> std::result::Result<Results, Box<std::error::Error>> {
+    pub fn search(&self) -> std::result::Result<Results, Box<std::error::Error>> {
         let url = self.build_url()?;
 
         let result_string = reqwest::get(url)?.text()?;
