@@ -1,3 +1,4 @@
+[![Build Status](https://travis-ci.com/Dhs92/wikia_api.svg?branch=dev)](https://travis-ci.com/Dhs92/wikia_api)
 # wikia_api
 A REST API wrapper for the Wikia API written in Rust
 
