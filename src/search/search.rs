@@ -16,7 +16,7 @@ pub struct Search {
 
 /// ## Example
 /// ```
-/// use wikia_api::search::data::results::Results;
+/// use wikia_api::search::results::Results;
 /// use wikia_api::search::search::Search;
 ///
 /// let search = Search::new()
