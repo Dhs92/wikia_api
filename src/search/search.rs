@@ -42,7 +42,7 @@ impl Default for Search {
 /// eprintln!("{:?}", search);
 ///
 /// ```
-impl<'a> Search {
+impl Search {
     /// Constructs an empty Search object
     pub fn new() -> Self {
         Self::default()
@@ -92,7 +92,7 @@ impl<'a> Search {
         self
     }
 
-    fn build_url(&'a self) -> std::result::Result<reqwest::Url, Box<dyn std::error::Error>> {
+    fn build_url(&self) -> std::result::Result<reqwest::Url, Box<dyn std::error::Error>> {
         let mut base_url = String::from("http://");
 
         match self.sub_wikia.as_ref() {
@@ -124,7 +124,7 @@ impl<'a> Search {
     }
 
     /// Build the URL from the provided options and submit the search
-    pub fn search(&'a self) -> std::result::Result<Results, Box<dyn std::error::Error>> {
+    pub fn search(&self) -> std::result::Result<Results, Box<dyn std::error::Error>> {
         let url = self.build_url()?;
 
         let result_string = reqwest::get(url)?.text()?;
