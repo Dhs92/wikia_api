@@ -10,7 +10,7 @@ pub struct Page {
     url: String,
     #[serde(alias="ns")]
     namespace: i8,
-    quality: i8,
+    quality: Option<i8>,
     snippet: String
 }
 
