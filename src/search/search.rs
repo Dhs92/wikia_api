@@ -42,7 +42,7 @@ impl Default for Search {
 /// eprintln!("{:?}", search);
 ///
 /// ```
-impl Search {
+impl<'a> Search {
     /// Constructs an empty Search object
     pub fn new() -> Self {
         Self::default()
