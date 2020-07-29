@@ -12,10 +12,5 @@ serde = { version = "1.0.90", features = ["derive"] }
 url = "1.7.2"
 
 [dev-dependencies]
-<<<<<<< Updated upstream
 log = "0.4.6"
 flexi_logger = "0.11.5"
-=======
-log = "*"
-flexi_logger = "*"
->>>>>>> Stashed changes
