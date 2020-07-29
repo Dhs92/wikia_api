@@ -7,6 +7,7 @@ use std::option::Option;
 use url::Url;
 
 #[derive(Debug)]
+#[allow(missing_docs)]
 pub struct Search {
     query: Option<String>,
     sub_wikia: Option<String>,
@@ -14,10 +15,21 @@ pub struct Search {
     limits: Option<String>,
 }
 
+impl Default for Search {
+    fn default() -> Self {
+        Search {
+            query: None,
+            sub_wikia: None,
+            namespace: None,
+            limits: None,
+        }
+    }
+}
+
 /// ## Example
 /// ```
-/// use wikia_api::search::results::Results;
-/// use wikia_api::search::search::Search;
+/// use wikia_api::search::Results;
+/// use wikia_api::search::Search;
 ///
 /// let search = Search::new()
 ///              .sub_wikia("thedivision")
@@ -33,12 +45,7 @@ pub struct Search {
 impl Search {
     /// Constructs an empty Search object
     pub fn new() -> Self {
-        Search {
-            query: None,
-            sub_wikia: None,
-            namespace: None,
-            limits: None,
-        }
+        Self::default()
     }
 
     /// Set the query for the search
@@ -85,7 +92,7 @@ impl Search {
         self
     }
 
-    fn build_url(&self) -> std::result::Result<reqwest::Url, Box<std::error::Error>> {
+    fn build_url(&'a self) -> std::result::Result<reqwest::Url, Box<dyn std::error::Error>> {
         let mut base_url = String::from("http://");
 
         match self.sub_wikia.as_ref() {
@@ -95,9 +102,10 @@ impl Search {
 
         let mut query_strings: Vec<(&str, &str)> = Vec::new();
 
+        #[allow(clippy::single_match)] // TODO throw Error if empty
         match self.query.as_ref() {
             Some(query) => query_strings.push(("query", &query)),
-            None => (), // TODO throw Error if empty
+            None => (), 
         };
 
         match self.limits.as_ref() {
@@ -116,7 +124,7 @@ impl Search {
     }
 
     /// Build the URL from the provided options and submit the search
-    pub fn search(&self) -> std::result::Result<Results, Box<std::error::Error>> {
+    pub fn search(&'a self) -> std::result::Result<Results, Box<dyn std::error::Error>> {
         let url = self.build_url()?;
 
         let result_string = reqwest::get(url)?.text()?;

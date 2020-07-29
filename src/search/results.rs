@@ -11,10 +11,10 @@ pub struct Results {
     batches: i32,
     items: Vec<Page>,
     total: i32,
-    currentBatch: i32,
+    #[serde(alias = "currentBatch")]
+    current_batch: i32,
     next: i32,
 }
 
 impl Results {
 }
-
